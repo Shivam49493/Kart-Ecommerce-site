@@ -22,7 +22,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/cart', cartrouter);
-app.use('/api/order', orderRoutes);
+app.use('/api/orders', orderRoutes);
 
 
 app.get('/', (req, res) => {

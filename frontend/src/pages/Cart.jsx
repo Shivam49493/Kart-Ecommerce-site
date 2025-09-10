@@ -4,6 +4,8 @@ import { shopDataContext } from '../context/ShopContext';
 import Title from '../components/Title';
 import { useNavigate } from 'react-router';
 
+import CartOrder from '../components/CartOrder';
+
 
 function Cart() {
 
@@ -45,12 +47,7 @@ function Cart() {
                         </div>
                         <div className='flex flex-col gap-2'>
                             <p className='text-md'>Quantity:</p>
-                            <input type='number' min={0} value={item.quantity} className='border w-20 p-2' onChange={(e)=>{
-                                let quantity=parseInt(e.target.value);
-                                if (quantity>=0){   
-                                    updateQuantity(item._id,item.size,quantity)
-                                }
-                            }}/>
+                            <input type='number' value={item.quantity} className='border w-20 p-2' onChange={(e)=>e.target.value===' '||e.target.value===0?null:updateQuantity(item._id,item.size,Number(e.target.value))}/>
                             <button onClick={()=>updateQuantity(item._id,item.size,0)}>delete </button>
                         </div>
                         <div className='flex flex-col gap-2'>
@@ -62,6 +59,8 @@ function Cart() {
                 )
             })
         }
+        <div><CartOrder/></div>
+        <button className='border p-2 m-4' onClick={()=>navigate('/placeorder')}>PlaceOrder</button>
                             
 
         </div>
