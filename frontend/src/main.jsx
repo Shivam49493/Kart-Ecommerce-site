@@ -12,7 +12,9 @@ createRoot(document.getElementById('root')).render(
       <AuthContext>
         <UserContext>
           <ShopContext>
-            <App />
+            <Routes>
+              <Route path="/*" element={<MainApp />} />
+            </Routes>
           </ShopContext>
         </UserContext>
       </AuthContext>

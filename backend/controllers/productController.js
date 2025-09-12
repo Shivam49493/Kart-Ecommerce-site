@@ -7,7 +7,7 @@ export const addProduct = async (req, res) => {
         console.log('Request files:', req.files ? Object.keys(req.files) : 'No files');
 
         // Validate required fields
-        const { name, description, price, category, subCategory, sizes, bestSeller } = req.body;
+        const { name, description,bestSeller, price, category, subCategory, sizes } = req.body;
         
         if (!name || !description || !price || !category) {
             return res.status(400).json({ 
@@ -50,11 +50,12 @@ export const addProduct = async (req, res) => {
             image4: image4 || null,
             name,
             description,
+            bestSeller: bestSeller === 'true' ? true : false,
             category,
             subCategory: subCategory || null,
             sizes: sizes ? JSON.parse(sizes) : [],
             price: Number(price),
-            bestSeller: bestSeller === "true",
+            
             date: Date.now()
         };
 
@@ -102,12 +103,11 @@ export const listProducts = async (req, res) => {
 export const deleteProduct = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedProduct = await Product.findByIdAndDelete(id);     
-        if (!deletedProduct) {
-            return res.status(404).json({ message: "Product not found" });
-        }
+        const deletedProduct = await Product.findByIdAndDelete(id);    
+        
+       
 
-        res.status(200).json({ message: "Product deleted successfully" });
+        return res.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {
         console.error("Error deleting product:", error);
         res.status(500).json({ 

@@ -17,10 +17,8 @@ function LatestCollection() {
     
   return (
     <div>
-        <div>
-            <Title text1={'Latest '} text2={'Collection'}/>
-        </div>
-        <div>
+        
+        <div className='grid grid-row-3  p-10 gap-10 grid-cols-3 gap-4'>
             {
                 latestProducts.map((item,index) => (
                     <Card key={index} name={item.name} image={item.image1} id={item._id} price={item.price} />

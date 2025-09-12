@@ -5,18 +5,20 @@ import App from './App.jsx'
 import {BrowserRouter} from "react-router-dom"
 import AuthContext from './context/AuthContext.jsx'
 import AdminContext from './context/AdminContext.jsx'
-import { ErrorBoundary } from "react-error-boundary";
+
 
 
 
 createRoot(document.getElementById('root')).render(
       
-        <BrowserRouter>
+        <BrowserRouter basename="/admin">
           <AuthContext>
             <AdminContext>
 
               
-                <App />
+                <Routes>
+                    <Route path="/*" element={<AdminApp />} />
+                </Routes>
               
             </AdminContext>
           </AuthContext>

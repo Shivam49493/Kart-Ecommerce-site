@@ -25,7 +25,7 @@ function Relatedproduct({category, subCategory,currentProductId}) {
         <div>
             <Title text1={'Related '} text2={'Products'}/>
         </div>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
+        <div className='grid grid-row-3  p-10 gap-10 grid-cols-3 gap-4'>
             {
                 relatedProducts.map((item,index) => (
                     <Card key={index} name={item.name} image={item.image1} id={item._id} price={item.price} />
