@@ -31,8 +31,8 @@ export const register = async (req, res) => {
     let token = await genToken(user._id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
         maxAge: 6 * 24 * 60 * 60 * 1000 // 6 days
     });
 
@@ -69,8 +69,8 @@ export const login = async (req, res) => {
     let token = await genToken(user);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
       maxAge: 6 * 24 * 60 * 60 * 1000 // 6 days
     });
 
