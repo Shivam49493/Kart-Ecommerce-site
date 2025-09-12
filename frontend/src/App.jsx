@@ -13,7 +13,7 @@ import Cart from './pages/Cart.jsx'
 import PlaceOrder from './pages/PlaceOrder.jsx'
 import Contact from './pages/Contact.jsx'
 import Collection from './pages/Collection.jsx'
-import Product from './pages/Product.jsx'
+
 import { useLocation } from 'react-router-dom'
 import ProductDetail from './pages/ProductDetail.jsx'
 
@@ -35,7 +35,7 @@ function App() {
       <Route path="/about" element={userData ? <About /> : <Navigate to="/login" state={{ from: location.pathname }} />} />
       <Route path="/contact" element={userData ? <Contact /> : <Navigate to="/login" state={{ from: location.pathname }} />} />
       <Route path="/collection" element={userData ? <Collection /> : <Navigate to="/login" state={{ from: location.pathname }} />} />
-      <Route path="/product" element={userData ? <Product /> : <Navigate to="/login" state={{ from: location.pathname }} />} />
+      
       <Route path="/productdetail/:id" element={userData ? <ProductDetail /> : <Navigate to="/login" state={{ from: location.pathname }} />} />
       <Route path="/register" element={<Register />} />
       <Route path="/cart" element={userData ? <Cart/> : <Navigate to="/login" state={{ from: location.pathname }} />} />

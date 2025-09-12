@@ -1,13 +1,11 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth,GoogleAuthProvider} from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// Debug: Check if environment variable is loaded
+console.log("API Key:", import.meta.env.VITE_FIREBASE_API_KEY);
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "your_fallback_api_key",
   authDomain: "loginkart-2e739.firebaseapp.com",
   projectId: "loginkart-2e739",
   storageBucket: "loginkart-2e739.firebasestorage.app",
@@ -16,7 +14,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const provider = new GoogleAuthProvider();
-const auth = getAuth(app);
-export { auth, provider };
+
+  const app = initializeApp(firebaseConfig);
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth(app);
+  
+  console.log("Firebase initialized successfully");
+  export { auth, provider };

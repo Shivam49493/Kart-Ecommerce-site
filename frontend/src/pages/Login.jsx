@@ -23,7 +23,7 @@ const Login = () => {
         password
       });
       if (response.status === 200) {
-        navigate('/about');
+        navigate('/');
       }
     } catch (error) {
       console.error("Error logging in:", error);

@@ -6,7 +6,7 @@ export const authDataContext = createContext();
 
 
 function AuthContext({ children }) {
-    let serverUrl = "https://kart-ecommerce-site.onrender.com/";
+    let serverUrl = "http://localhost:8000";
     let value = { serverUrl };
 
 
