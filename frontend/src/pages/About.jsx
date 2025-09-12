@@ -1,5 +1,6 @@
 import React from 'react';
 import Title from '../components/Title';
+import OurPolicy from '../components/OurPolicy';
 
 function About() {
   return (
@@ -78,6 +79,7 @@ function About() {
           </div>
         </div>
       </div>
+      <OurPolicy/>
     </div>
   );
 }

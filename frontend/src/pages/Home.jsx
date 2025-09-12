@@ -4,6 +4,7 @@ import { Hero } from '../components/Hero';
 import LatestCollection from '../components/LatestCollection';
 import Bestseller from '../components/Bestseller';
 import { FiTruck, FiGift, FiShield, FiRefreshCw } from 'react-icons/fi';
+import OurPolicy from '../components/OurPolicy';
 
 function Home() {
   let heroData = [
@@ -131,6 +132,7 @@ function Home() {
           </div>
         </div>
       </section>
+      <OurPolicy/>
     </div>
   );
 }

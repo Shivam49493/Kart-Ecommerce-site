@@ -3,6 +3,7 @@ import { FiFilter, FiX, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import Title from '../components/Title';
 import { shopDataContext } from '../context/ShopContext';
 import Card from '../components/Card';
+import OurPolicy from '../components/OurPolicy';
 
 function Collection() {
   let [showFilter, setShowFilter] = useState(false);
@@ -367,6 +368,7 @@ function Collection() {
             </div>
           </div>
         </section>
+        <OurPolicy/>
       </div>
     </div>
   );
