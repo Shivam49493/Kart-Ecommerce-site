@@ -5,7 +5,6 @@ import Nav from '../components/Nav';
 import { authDataContext } from '../context/AuthContext';
 import axios from 'axios';
 
-
 function Add() {
   let [image1, setImage1] = useState(null);
   let [image2, setImage2] = useState(null);
@@ -221,11 +220,11 @@ function Add() {
               </div>
 
               {/* Best Seller */}
-                <div className="col-span-2 flex items-center">
+              <div className="col-span-2 flex items-center">
                 <input 
                   type="checkbox" 
                   id="bestSeller"
-                  onChange={() => setBestSeller(prev => !prev )}
+                  onChange={() => setBestSeller(prev => !prev)} 
                   checked={bestSeller} 
                   className="h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300 rounded"
                 />

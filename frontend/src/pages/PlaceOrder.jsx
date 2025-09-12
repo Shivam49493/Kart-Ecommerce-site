@@ -1,11 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react'
 import CartOrder from '../components/CartOrder'
+import Order from './Order'
 import Title from '../components/Title'
 import { shopDataContext } from '../context/ShopContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
 import { userDataContext } from '../context/UserContext'
 import { authDataContext } from '../context/AuthContext'
+
+
 
 function PlaceOrder() {
   let { products, cartItems, setCartItems, getCartAmount, deliveryCharge } = useContext(shopDataContext)
@@ -15,23 +18,17 @@ function PlaceOrder() {
 
   let [method, setMethod] = useState('cod')
   let [formData, setFormData] = useState({
-    name: userData?.name || '',
-    email: userData?.email || '',
-    phone: userData?.phone || '',
-    address: userData?.address || ''
+    name: '',
+    email: '',
+    phone: '',
+    address: ''
   })
 
   // Load Razorpay script
   useEffect(() => {
     const loadRazorpayScript = () => {
       return new Promise((resolve) => {
-        if (document.getElementById('razorpay-script')) {
-          resolve(true);
-          return;
-        }
-        
         const script = document.createElement('script');
-        script.id = 'razorpay-script';
         script.src = 'https://checkout.razorpay.com/v1/checkout.js';
         script.onload = () => resolve(true);
         script.onerror = () => resolve(false);
@@ -50,7 +47,7 @@ function PlaceOrder() {
 
   const initPay = (orderData) => {
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Make sure you use VITE_ prefix for Vite env variables
       amount: orderData.amount,
       currency: orderData.currency,
       name: "Your Store Name",
@@ -66,8 +63,10 @@ function PlaceOrder() {
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_order_id: response.razorpay_order_id,
             razorpay_signature: response.razorpay_signature,
-            orderId: orderData.receipt
+            orderId: orderData.receipt // Your database order ID
           }, { withCredentials: true });
+
+          
 
           if(data){
             setCartItems({});
@@ -171,131 +170,46 @@ function PlaceOrder() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <Title text1="Place" text2="Order" />
-        
-        <div className="mt-8 bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Shipping Information</h2>
+    <div>
+      <h1>Place Order</h1>
+      <div>
+        <form className='flex flex-col gap-4 border p-4 w-1/2 mx-auto mt-10'>
+          <div className='flex flex-col gap-2'>
+            <label htmlFor="name">Name *</label>
+            <input type="text" id='name' className='border p-2' onChange={handleChange} name='name' value={formData.name} required />
+          </div>
+          <div className='flex flex-col gap-2'>
+            <label htmlFor="phone">Phone *</label>
+            <input type="text" id='phone' className='border p-2' onChange={handleChange} name='phone' value={formData.phone} required />
+          </div>
+          <div className='flex flex-col gap-2'>
+            <label htmlFor="email">Email</label>
+            <input type="email" id='email' className='border p-2' onChange={handleChange} name='email' value={formData.email} />
+          </div>
+          <div className='flex flex-col gap-2'>
+            <label htmlFor="address">Address *</label>
+            <textarea id='address' className='border p-2' name='address' onChange={handleChange} value={formData.address} required />
+          </div>
+
+          <div><CartOrder /></div>
           
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  required
-                />
-              </div>
-            </div>
-            
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-                Delivery Address *
-              </label>
-              <textarea
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            
-            <div className="border-t border-gray-200 pt-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">Order Summary</h3>
-              <CartOrder />
-            </div>
-            
-            <div className="border-t border-gray-200 pt-6">
-              <Title text1="Select" text2="Payment Method" />
-              
-              <div className="flex flex-wrap gap-4 mt-4">
-                <button
-                  type="button"
-                  className={`px-6 py-3 rounded-lg border-2 font-medium transition-all ${
-                    method === 'cod' 
-                      ? 'border-black bg-black text-white' 
-                      : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
-                  }`}
-                  onClick={() => setMethod('cod')}
-                >
-                  Cash on Delivery
-                </button>
-                
-                <button
-                  type="button"
-                  className={`px-6 py-3 rounded-lg border-2 font-medium transition-all ${
-                    method === 'razorpay' 
-                      ? 'border-black bg-black text-white' 
-                      : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
-                  }`}
-                  onClick={() => setMethod('razorpay')}
-                >
-                  Online Payment
-                </button>
-              </div>
-              
-              {method === 'razorpay' && (
-                <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-                  <p className="text-sm text-blue-700">
-                    You will be redirected to a secure payment gateway to complete your transaction.
-                  </p>
-                </div>
-              )}
-            </div>
-            
-            <div className="border-t border-gray-200 pt-6">
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-3 px-6 rounded-md font-medium hover:bg-gray-800 transition-colors"
-              >
-                Place Order
-              </button>
-            </div>
-          </form>
-        </div>
+          <div>
+            <Title text1={'Select'} text2={'Payment Method'} />
+            <button type='button' className={`border p-2 mr-4 ${method === 'cod' ? 'bg-black text-white' : ''}`} onClick={() => setMethod('cod')}>
+              Cash on Delivery
+            </button>
+            <button type='button' className={`border p-2 ${method === 'razorpay' ? 'bg-black text-white' : ''}`} onClick={() => setMethod('razorpay')}>
+              Online Payment
+            </button>
+          </div>
+          
+          <button type='submit' className='border p-2 bg-black text-white' onClick={handleSubmit}>
+            Place Order
+          </button>
+        </form>
       </div>
     </div>
   )
 }
 
-export default PlaceOrder;
+export default PlaceOrder 

@@ -8,11 +8,6 @@ import userRouter from './routes/userRoutes.js';
 import productRouter from './routes/productRoutes.js';
 import cartrouter from './routes/cartRoute.js';
 import orderRoutes from './routes/orderRoutes.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 dotenv.config()
 let app = express();
 let PORT = process.env.PORT || 8000;
@@ -32,17 +27,6 @@ app.use('/api/orders', orderRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
-});
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.use('/admin', express.static(path.join(__dirname, '../admin')));
-
-// Catch-all handler for SPA routing
-app.get('*', (req, res) => {
-  if (req.path.startsWith('/admin')) {
-    res.sendFile(path.join(__dirname, '../admin/index.html'));
-  } else {
-    res.sendFile(path.join(__dirname, '../frontend/index.html'));
-  }
 });
 
 app.listen(8000, () => {
