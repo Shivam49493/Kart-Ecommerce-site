@@ -30,8 +30,8 @@ function LatestCollection() {
         <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-10">
           <div className="text-center md:text-left mb-6 md:mb-0">
             <div className="inline-flex items-center justify-center md:justify-start">
-              <FiClock className="h-8 w-8 text-indigo-600 mr-3" />
-              <Title text1={'Latest'} text2={'Collection'} />
+              
+            
             </div>
             <p className="mt-2 text-lg text-gray-600">
               Discover our newest arrivals and stay ahead of the trends
@@ -53,9 +53,7 @@ function LatestCollection() {
             <div key={index} className="group relative">
               {/* New arrival badge */}
               <div className="absolute top-3 left-3 z-10">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                  New
-                </span>
+                
               </div>
               <Card 
                 name={item.name} 

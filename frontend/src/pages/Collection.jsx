@@ -3,10 +3,10 @@ import { FiFilter, FiX, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import Title from '../components/Title';
 import { shopDataContext } from '../context/ShopContext';
 import Card from '../components/Card';
-import OurPolicy from '../components/OurPolicy';
+
 
 function Collection() {
-  let [showFilter, setShowFilter] = useState(false);
+ 
   let { products, search, setSearch } = useContext(shopDataContext);
   let [filterProducts, setFilterProducts] = useState([]);
   let [category, setCategory] = useState([]);
@@ -368,7 +368,7 @@ function Collection() {
             </div>
           </div>
         </section>
-        <OurPolicy/>
+        
       </div>
     </div>
   );

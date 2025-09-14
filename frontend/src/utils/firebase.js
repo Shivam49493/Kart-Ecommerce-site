@@ -1,11 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-// Debug: Check if environment variable is loaded
-console.log("API Key:", import.meta.env.VITE_FIREBASE_API_KEY);
+
+
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "your_fallback_api_key",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY ,
   authDomain: "loginkart-2e739.firebaseapp.com",
   projectId: "loginkart-2e739",
   storageBucket: "loginkart-2e739.firebasestorage.app",
@@ -19,5 +19,5 @@ const firebaseConfig = {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   
-  console.log("Firebase initialized successfully");
+ 
   export { auth, provider };

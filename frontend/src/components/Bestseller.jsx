@@ -25,10 +25,7 @@ function Bestseller() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex justify-between items-end mb-10">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900">Bestsellers</h2>
-            <p className="mt-2 text-lg text-gray-600">Our most popular products loved by customers</p>
-          </div>
+          
           <button 
             onClick={() => navigate('/collection')}
             className="hidden md:flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition-colors"

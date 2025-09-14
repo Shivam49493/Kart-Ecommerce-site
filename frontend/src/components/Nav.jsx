@@ -5,13 +5,16 @@ import { userDataContext } from '../context/UserContext';
 import { shopDataContext } from '../context/ShopContext';
 import { useNavigate } from 'react-router';
 
+
 const Nav = () => {
-  const { userData, handleLogout } = useContext(userDataContext);
+  const { userData,logout } = useContext(userDataContext);
   const { search, setSearch, showSearch, setShowSearch, getCartCount } = useContext(shopDataContext);
   const [showProfile, setShowProfile] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+
+  
   return (
     <nav className="bg-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,7 +127,7 @@ const Nav = () => {
                     Wishlist
                   </button>
                   <button 
-                    onClick={() => { handleLogout(); setShowProfile(false); }}
+                    onClick={() => { logout(); setShowProfile(false); }}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                   >
                     Logout
@@ -237,7 +240,7 @@ const Nav = () => {
                   </button>
                   <button 
                     className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
-                    onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+                    onClick={() => { logout(); setMobileMenuOpen(false); }}
                   >
                     Logout
                   </button>
